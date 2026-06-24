@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "lerobot-compare"
+version = "0.3.0"
+description = "Label-efficient, anytime-valid comparison of robot/agent policies for lerobot"
+requires-python = ">=3.10"
+dependencies = ["numpy>=1.24", "scipy>=1.10"]
+
+[project.optional-dependencies]
+viz = ["matplotlib>=3.7"]
+vlm = ["torch>=2.2", "transformers>=4.49", "qwen-vl-utils", "accelerate", "pillow"]
+sim = ["lerobot"]
+dev = ["pytest>=8", "pytest-cov", "ruff"]
+
+[project.scripts]
+lerobot-compare = "lerobot_doctor.cli:main"   # codemod rewrites to lerobot.scripts.doctor:main for the PR
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["slow: Monte-Carlo / long-running statistical tests"]
+
+[tool.ruff]
+line-length = 100
